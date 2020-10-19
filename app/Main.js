@@ -18,6 +18,7 @@ Axios.defaults.baseURL = "http://localhost:8080"
 function Main() {
   const [loggedin, setLoggedIn] = useState(Boolean(localStorage.getItem("complexappToken")))
   const [flashMessages, setFlashMessages] = useState([])
+  //
 
   function addFlashMessage(msg) {
     setFlashMessages(prev => prev.concat(msg))
