@@ -10,9 +10,9 @@ function CreatePost(props) {
   async function handleSubmit(e) {
     try {
       e.preventDefault()
-      await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") })
+      const response = await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") })
       console.log("post created")
-      props.history.push("/post/abc123")
+      props.history.push(`/post/${response.data}`)
     } catch (e) {
       console.log(e)
     }
