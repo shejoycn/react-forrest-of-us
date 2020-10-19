@@ -10,7 +10,7 @@ function RegisterForm() {
     e.preventDefault()
 
     try {
-      await Axios.post("http://localhost:8080/register", { username, password, email })
+      await Axios.post("/register", { username, password, email })
       console.log("user was successfully created")
     } catch (e) {
       console.log("error occured : e ==>" + e)
