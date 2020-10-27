@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useReducer } from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 
@@ -18,6 +18,37 @@ import ExampleContext from "./ExampleContext"
 Axios.defaults.baseURL = "http://localhost:8080"
 
 function Main() {
+
+  const initialState={
+    loggedIn : Boolean(localStorage.getItem("complexappToken")),
+    flashMessages : []
+  }
+
+  function ourReducer(state,action) {
+    switch (action.type){
+      case "login" :
+        return {
+          loggedIn : true,
+          flashMessages : state.flashMessages
+        };
+      case "logout" :
+        return {
+          loggedIn : false,
+          flashMessages : state.flashMessages
+        };
+     case "flashMessage" :
+        return {
+          loggedIn : state.loggedIn,
+          flashMessages : state.flashMessages.concat(action.value)
+        };
+
+    }
+  }
+
+  
+
+  const [state,dispatch]= useReducer(ourReducer,initialState);
+
   const [loggedin, setLoggedIn] = useState(Boolean(localStorage.getItem("complexappToken")))
   const [flashMessages, setFlashMessages] = useState([])
   //
