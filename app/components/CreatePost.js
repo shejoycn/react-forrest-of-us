@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState , useContext} from "react"
 import Axios from "axios"
 import { withRouter } from "react-router-dom"
 import Page from "./Page"
+import ExampleContext from "../ExampleContext"
+
 
 function CreatePost(props) {
   const [title, setTitle] = useState()
   const [body, setBody] = useState()
+
+  const {addFlashMessage} = useContext(ExampleContext)
 
   async function handleSubmit(e) {
     try {

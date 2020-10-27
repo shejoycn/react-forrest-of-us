@@ -1,9 +1,12 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import Axios from "axios"
+import ExampleContext from "../ExampleContext";
 
 function HeaderLoggedIn(props) {
+  const {setLoggedIn}=useContext(ExampleContext);
   function handleLogout() {
-    props.setLoggedIn(false)
+   
+    setLoggedIn(false)
     localStorage.removeItem("complexappToken")
     localStorage.removeItem("complexappUsername")
     localStorage.removeItem("complexappAvatar")
