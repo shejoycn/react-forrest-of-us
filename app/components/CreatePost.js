@@ -16,7 +16,7 @@ function CreatePost(props) {
       e.preventDefault()
       const response = await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") })
       console.log("post created")
-      props.addFlashMessage(`Post created ${response.data} `)
+      addFlashMessage(`Post created ${response.data} `)
       props.history.push(`/post/${response.data}`)
     } catch (e) {
       console.log(e)
