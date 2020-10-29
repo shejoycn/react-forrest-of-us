@@ -1,15 +1,15 @@
 import React, { useEffect, useContext } from "react"
 import Axios from "axios"
 import DispatchContext from "../DispatchContext";
+import StateContext from "../StateContext";
 
 function HeaderLoggedIn(props) {
   const dispatchState = useContext(DispatchContext)
+   const appState = useContext(StateContext)
   function handleLogout() {
    
     dispatchState({ type: "logout"})
-    localStorage.removeItem("complexappToken")
-    localStorage.removeItem("complexappUsername")
-    localStorage.removeItem("complexappAvatar")
+    
   }
   return (
     <div className="flex-row my-3 my-md-0">
@@ -21,7 +21,7 @@ function HeaderLoggedIn(props) {
         <span className="chat-count-badge text-white"> </span>
       </span>
       <a href="#" className="mr-2">
-        <img className="small-header-avatar" src={localStorage.getItem("complexappAvatar")} />
+        <img className="small-header-avatar" src={appState.user.avatar} />
       </a>
       <a className="btn btn-sm btn-success mr-2" href="/create-post">
         Create Post

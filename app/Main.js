@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react"
+import React, { useState, useReducer, useEffect } from "react"
 import {useImmerReducer} from "use-immer"
 import ReactDOM from "react-dom"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
@@ -23,13 +23,19 @@ function Main() {
 
   const initialState={
     loggedIn : Boolean(localStorage.getItem("complexappToken")),
-    flashMessages : []
+    flashMessages : [],
+    user :{
+      token:localStorage.getItem("complexappToken"),
+      username:localStorage.getItem("complexappUsername"),
+      avatar:localStorage.getItem("complexappAvatar")
+    }
   }
 
   function ourReducer(draft,action) {
     switch (action.type){
       case "login" :
         draft.loggedIn=true;
+        draft.user=action.data
         return
       case "logout" :
         draft.loggedIn=false;
@@ -44,6 +50,18 @@ function Main() {
 
   const [state,dispatch]= useImmerReducer(ourReducer,initialState);
 
+  useEffect(()=>{
+    if(state.loggedIn){
+        localStorage.setItem("complexappToken", state.user.token)
+        localStorage.setItem("complexappUsername", state.user.username)
+        localStorage.setItem("complexappAvatar", state.user.avatar)
+    }
+    else{
+        localStorage.removeItem("complexappToken")
+        localStorage.removeItem("complexappUsername")
+        localStorage.removeItem("complexappAvatar")
+    }
+  },[state.loggedIn])
 
   return (
     
@@ -54,7 +72,7 @@ function Main() {
         <Header />
         <Switch>
           <Route path="/" exact>
-            {state.loggedin ? <Home /> : <HomeGuest />}
+            {state.loggedIn ? <Home /> : <HomeGuest />}
           </Route>
           <Route path="/about-us" exact>
             <About />
