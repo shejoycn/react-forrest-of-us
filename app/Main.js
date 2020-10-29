@@ -33,7 +33,7 @@ function Main() {
         return
       case "logout" :
         draft.loggedIn=false;
-        
+        return
      case "flashMessage" :
        draft.flashMessages.push(action.value)
         return 
