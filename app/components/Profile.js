@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom"
 import Axios from 'axios'
 
 import StateContext from "../StateContext"
+
+import Loading from "./Loading"
 import Page from "./Page"
 import ProfilePosts from  './ProfilePosts'
 
@@ -42,7 +44,7 @@ function Profile(props) {
  ,[])
 
  if(isLoading)
- return (<div>Loading data.....</div>)
+ return (<Loading></Loading>)
 
  else
     return (

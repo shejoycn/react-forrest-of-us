@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
-
-import StateContext from "../StateContext"
-import Page from "./Page"
 import {useParams, Link} from "react-router-dom"
 import Axios from 'axios'
+
+import Loading from "./Loading"
 
 function ProfilePosts(props) {
 
@@ -31,7 +30,7 @@ function ProfilePosts(props) {
     ,[])
 
     if(isLoading)
-    return (<div>Loading data.....</div>)
+    return (<Loading></Loading>)
 
     else
     

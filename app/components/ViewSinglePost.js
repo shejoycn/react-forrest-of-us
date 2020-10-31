@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Page from "./Page"
 import Axios from "axios"
 
+import Loading from "./Loading"
 import {useParams} from "react-router-dom"
 function ViewSinglePost() {
 
@@ -31,7 +32,7 @@ function ViewSinglePost() {
     ,[])
 
     if(isLoading)
-    return (<div>Loading data.....</div>)
+   return (<Loading></Loading>)
 
         const date = new Date(post.createdDate)
         const dateFormatted = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
