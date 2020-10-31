@@ -16,6 +16,7 @@ import FlashMessages from "./components/FlashMessages"
 
 import StateContext from "./StateContext"
 import DispatchContext from "./DispatchContext"
+import Profile from "./components/Profile"
 
 Axios.defaults.baseURL = "http://localhost:8080"
 
@@ -73,6 +74,9 @@ function Main() {
         <Switch>
           <Route path="/" exact>
             {state.loggedIn ? <Home /> : <HomeGuest />}
+          </Route>
+          <Route path="/profile/:username" >
+            <Profile />
           </Route>
           <Route path="/about-us" exact>
             <About />

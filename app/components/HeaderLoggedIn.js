@@ -3,6 +3,8 @@ import Axios from "axios"
 import DispatchContext from "../DispatchContext";
 import StateContext from "../StateContext";
 
+import {Link} from "react-router-dom"
+
 function HeaderLoggedIn(props) {
   const dispatchState = useContext(DispatchContext)
    const appState = useContext(StateContext)
@@ -20,9 +22,9 @@ function HeaderLoggedIn(props) {
         <i className="fas fa-comment"></i>
         <span className="chat-count-badge text-white"> </span>
       </span>
-      <a href="#" className="mr-2">
+      <Link to={`/profile/${appState.user.username}`} className="mr-2">
         <img className="small-header-avatar" src={appState.user.avatar} />
-      </a>
+      </Link>
       <a className="btn btn-sm btn-success mr-2" href="/create-post">
         Create Post
       </a>
