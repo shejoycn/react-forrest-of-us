@@ -18,6 +18,8 @@ import StateContext from "./StateContext"
 import DispatchContext from "./DispatchContext"
 import Profile from "./components/Profile"
 
+import EditPost from "./components/EditPost"
+
 Axios.defaults.baseURL = "http://localhost:8080"
 
 function Main() {
@@ -86,6 +88,9 @@ function Main() {
           </Route>
           <Route path="/post/:id" exact>
             <ViewSinglePost />
+          </Route>
+          <Route path="/post/:id/edit" exact>
+            <EditPost />
           </Route>
           <Route path="/terms" exact>
             <Terms />
