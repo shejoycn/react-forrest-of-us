@@ -1,21 +1,29 @@
-import React, { useEffect, useContext } from "react"
-import Axios from "axios"
+import React, { useEffect, useContext } from "react";
+import Axios from "axios";
 import DispatchContext from "../DispatchContext";
 import StateContext from "../StateContext";
 
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function HeaderLoggedIn(props) {
-  const dispatchState = useContext(DispatchContext)
-   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
+
+  function handleSearchIcon(e) {
+    e.preventDefault();
+    appDispatch({ type: "openSearch" });
+  }
+
   function handleLogout() {
-   
-    dispatchState({ type: "logout"})
-    
+    appDispatch({ type: "logout" });
   }
   return (
     <div className="flex-row my-3 my-md-0">
-      <a href="#" className="text-white mr-2 header-search-icon">
+      <a
+        onClick={handleSearchIcon}
+        href="#"
+        className="text-white mr-2 header-search-icon"
+      >
         <i className="fas fa-search"></i>
       </a>
       <span className="mr-2 header-chat-icon text-white">
@@ -32,7 +40,7 @@ function HeaderLoggedIn(props) {
         Sign Out
       </button>
     </div>
-  )
+  );
 }
 
-export default HeaderLoggedIn
+export default HeaderLoggedIn;
