@@ -2,6 +2,7 @@ import React, { useState, useReducer, useEffect } from "react";
 import { useImmerReducer } from "use-immer";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
 import About from "./components/About";
 import CreatePost from "./components/CreatePost";
@@ -100,7 +101,14 @@ function Main() {
             </Route>
           </Switch>
           <Footer />
-          {state.isSearchOpen ? <Search /> : ""}
+          <CSSTransition
+            timeout={333}
+            in={state.isSearchOpen}
+            classNames="search-overlay"
+            unmountOnExit
+          >
+            <Search />
+          </CSSTransition>
         </BrowserRouter>
       </DispatchContext.Provider>
     </StateContext.Provider>

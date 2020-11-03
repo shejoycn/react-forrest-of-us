@@ -18,6 +18,8 @@ function ViewSinglePost(props) {
   const { id } = useParams();
 
   async function deletePost() {
+    const confirm = window.confirm("Do you want to delete");
+    if (!confirm) return;
     const response = await Axios.delete(`/post/${id}`, {
       data: { token: appState.user.token },
     });
@@ -44,7 +46,7 @@ function ViewSinglePost(props) {
     }
 
     fetchData();
-  }, []);
+  }, [{ id }]);
 
   const isNotEditor = () => {
     if (
