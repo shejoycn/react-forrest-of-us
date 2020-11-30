@@ -33,6 +33,7 @@ function ViewSinglePost(props) {
   }
 
   useEffect(() => {
+    const ourRequest = Axios.CancelToken.source();
     async function fetchData() {
       try {
         const response = await Axios.get(`/post/${id}`);
@@ -46,17 +47,18 @@ function ViewSinglePost(props) {
     }
 
     fetchData();
-  }, [{ id }]);
+    return () => {
+      ourRequest.cancel();
+    };
+  }, [id]);
 
-  const isNotEditor = () => {
-    if (
-      appState.isLoggedIn &&
-      appState.user.username === post.author.username
-    ) {
-      return false;
+  function isOwner() {
+    if (appState.loggedIn) {
+      return appState.user.username == post.author.username;
     } else {
+      return false;
     }
-  };
+  }
 
   if (isLoading) return <Loading></Loading>;
 
@@ -69,7 +71,8 @@ function ViewSinglePost(props) {
     <Page title={`Post : ${post.title}`}>
       <div className="d-flex justify-content-between">
         <h2>{post.title}</h2>
-        {isNotEditor ? (
+
+        {isOwner() && (
           <span className="pt-2">
             <Link
               href="#"
@@ -94,7 +97,11 @@ function ViewSinglePost(props) {
         <a href="#">
           <img className="avatar-tiny" src={post.author.avatar} />
         </a>
-        Posted by <a href="#">{post.author.username}</a> on {dateFormatted}
+        Posted by{" "}
+        <Link to={`/profile/${post.author.username}`}>
+          {post.author.username}
+        </Link>{" "}
+        on {dateFormatted}
       </p>
 
       <div className="body-content">

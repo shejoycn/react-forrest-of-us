@@ -4,6 +4,8 @@
   "description": "",
   "main": "test.js",
   "scripts": {
+    "analyze": "source-map-explorer 'app/bundled.js'",
+    "build": "webpack",
     "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,6 +34,7 @@
     "react-tooltip": "^4.2.5",
     "react-transition-group": "^4.4.1",
     "socket.io-client": "^2.3.0",
+    "source-map-explorer": "^2.5.0",
     "use-immer": "^0.4.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
