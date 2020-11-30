@@ -87,8 +87,6 @@ function ViewSinglePost(props) {
               <i className="fas fa-trash"></i>
             </a>
           </span>
-        ) : (
-          <span />
         )}
       </div>
 
