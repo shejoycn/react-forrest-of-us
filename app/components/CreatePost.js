@@ -1,33 +1,32 @@
-import React, { useEffect, useState , useContext} from "react"
+import React, { useEffect, useState, useContext } from "react"
+import Page from "./Page"
 import Axios from "axios"
 import { withRouter } from "react-router-dom"
-import Page from "./Page"
 import DispatchContext from "../DispatchContext"
 import StateContext from "../StateContext"
-
 
 function CreatePost(props) {
   const [title, setTitle] = useState()
   const [body, setBody] = useState()
-
   const appDispatch = useContext(DispatchContext)
-   const appState = useContext(StateContext)
-
+  const appState = useContext(StateContext)
 
   async function handleSubmit(e) {
+    e.preventDefault()
     try {
-      e.preventDefault()
       const response = await Axios.post("/create-post", { title, body, token: appState.user.token })
-      console.log("post created")
+      // Redirect to new post url
       appDispatch({ type: "flashMessage", value: "Congrats, you created a new post." })
       props.history.push(`/post/${response.data}`)
+      console.log("New post was created.")
     } catch (e) {
-      console.log(e)
+      console.log("There was a problem.")
     }
   }
+
   return (
-    <Page wide={true} title="Create new post">
-      <form>
+    <Page title="Create New Post">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">
             <small>Title</small>
@@ -42,9 +41,7 @@ function CreatePost(props) {
           <textarea onChange={e => setBody(e.target.value)} name="body" id="post-body" className="body-content tall-textarea form-control" type="text"></textarea>
         </div>
 
-        <button onClick={handleSubmit} className="btn btn-primary">
-          Save New Post
-        </button>
+        <button className="btn btn-primary">Save New Post</button>
       </form>
     </Page>
   )
